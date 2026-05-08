@@ -67,16 +67,20 @@ open_tab() {
         create_cmd="tell current window to create tab with default profile"
     fi
 
+    # Step 1: create tab and start the command
     osascript << EOF
 tell application "iTerm2"
     activate
     $create_cmd
     tell current session of current window
-        set name to "$safe_name"
         write text "bash '$safe_startup' '$safe_name'"
     end tell
 end tell
 EOF
+
+    # Step 2: wait for Claude to settle, then force-set the session name
+    sleep 8
+    osascript -e "tell application \"iTerm2\" to set name of current session of current window to \"$safe_name\""
 }
 
 if [ ! -f "$TODO_FILE" ]; then
