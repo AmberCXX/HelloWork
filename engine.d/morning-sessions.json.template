@@ -1,0 +1,11 @@
+{
+  "schedules": [
+    {
+      "hour": {{HOUR}},
+      "minute": {{MINUTE}},
+      "sender": "heartbeat",
+      "label": "morning-sessions",
+      "template": "[指令] 现在是 {time}，执行今日 session 启动。运行命令：\nbash {{SCRIPTS_DIR}}/morning-sessions.sh\n该脚本会读取 todo 列表，为每条待启动/进行中的任务打开一个 iTerm2 tab（已存在的 tab 自动跳过）。"
+    }
+  ]
+}
